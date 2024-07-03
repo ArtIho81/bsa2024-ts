@@ -18,6 +18,6 @@ export const createRandomMovieBanner = (movies: ResponseResults[]) => {
     ) as HTMLParagraphElement;
     const randomMovieNumber = getRandomNumber(movies.length);
     const randomMovie = movies[randomMovieNumber];
-    movieName.innerHTML = randomMovie.original_title;
+    movieName.innerHTML = randomMovie.title;
     movieDescription.innerHTML = randomMovie.overview;
 };

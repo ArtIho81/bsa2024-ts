@@ -5,6 +5,7 @@ export const IMG_URL = 'https://image.tmdb.org/t/p/original/';
 export enum Tags {
     div = 'div',
     img = 'img',
+    svg = 'svg',
 }
 
 export interface ResponseResults {
