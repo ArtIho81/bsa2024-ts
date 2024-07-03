@@ -1,11 +1,10 @@
-const API_KEY = '774a8b8ec5bdfb82ea4602f9b712a546';
-const API_URL = 'https://api.themoviedb.org/3/';
+import { API_KEY, API_URL, ResponseMovies } from './config';
 
 export type Search = 'search';
 export type SortParams = 'popular' | 'top_rated' | 'upcoming';
 export type QueryParams = { page?: number; query?: string };
 
-const createQuery = (queryParams: QueryParams) =>
+const createQuery = (queryParams: QueryParams): string =>
     `?${Object.entries(queryParams)
         .map((param) => `${param[0]}=${param[1]}&`)
         .join('')}api_key=${API_KEY}`;
@@ -20,9 +19,9 @@ const createSearchUrl = (search: Search, queryParams: QueryParams): string => {
     return `${API_URL}${search}/movie${query}`;
 };
 
-export const getMovies = async (list: SortParams | Search, queryParams: QueryParams) => {
+export const getMovies = async (list: SortParams | Search, queryParams: QueryParams): Promise<ResponseMovies> => {
     const url = list === 'search' ? createSearchUrl(list, queryParams) : createSortUrl(list, queryParams);
     const res = await fetch(url);
-    const data = await res.json();
+    const data: ResponseMovies = await res.json();
     return data;
 };

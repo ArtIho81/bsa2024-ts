@@ -1,19 +1,30 @@
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { SortParams } from './api';
-import { renderMoviesPage } from './templates';
+import { renderMoviesPage } from './movie-page';
+import { getHTMLElement } from './helpers';
 
 import './styles/styles.css';
 
 // TODO render your app here
+enum ButtonSelectors {
+    nextPage = '#load-more',
+    search = '#search-submit',
+}
+
+enum InputSelectors {
+    sortSelector = '.btn-check',
+    sortSelectorChecked = '.btn-check[checked]',
+    search = '#search',
+}
 
 const startPage = 1;
 let currentPage = 1;
-const moviesSortSelector: NodeListOf<HTMLInputElement> = document.querySelectorAll('.btn-check');
-let moviesSortSelectorActive = document.querySelector('.btn-check[checked]') as HTMLInputElement;
-const loadMore = document.getElementById('load-more') as HTMLButtonElement;
-const searchInput = document.getElementById('search') as HTMLInputElement;
-const searchButton = document.getElementById('search-submit') as HTMLButtonElement;
+const moviesSortSelector: NodeListOf<HTMLInputElement> = document.querySelectorAll(InputSelectors.sortSelector);
+let moviesSortSelectorActive = getHTMLElement(document, InputSelectors.sortSelectorChecked) as HTMLInputElement;
+const loadMore = getHTMLElement(document, ButtonSelectors.nextPage) as HTMLButtonElement;
+const searchInput = getHTMLElement(document, InputSelectors.search) as HTMLInputElement;
+const searchButton = getHTMLElement(document, ButtonSelectors.search) as HTMLButtonElement;
 
 renderMoviesPage(moviesSortSelectorActive.id as SortParams, { page: startPage });
 
